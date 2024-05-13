@@ -1,0 +1,108 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  /* min-height: 100vh; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-body {
+  /* background-color: #282c34; */
+  /* min-height: 100vh; */
+  display: block;
+  /* flex-direction: row; */
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+
+  > iframe {
+    width: 50% !important;
+    float: right;
+  }
+
+  .header {
+    display: flex;
+  }
+
+  .text {
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+
+  #Controls {
+    background-color: gray;
+    width: 50%;
+  }
+  #PlaylistWrapper {
+  }
+  #SpotifyPlayer {
+  }
+  #Recorder {
+  }
+  #PlaylistData {
+    background-color: black;
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid rgb(140 140 140);
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+
+    > caption {
+      background-color: inherit;
+      font-size: large;
+      letter-spacing: inherit;
+    }
+    > thead {
+      background-color: inherit;
+      font-size: inherit;
+      letter-spacing: inherit;
+      border-collapse: inherit;
+      border: inherit;
+      > tr {
+        border-collapse: inherit;
+        border: inherit;
+        > th {
+          border-collapse: inherit;
+          border: inherit;
+        }
+      }
+    }
+    > tbody {
+      border-collapse: collapse;
+      border: 2px solid rgb(140 140 140);
+      font-family: sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      > tr {
+        border-collapse: inherit;
+        border: inherit;
+        > th {
+          border-collapse: inherit;
+          border: inherit;
+        }
+        > td {
+          border-collapse: inherit;
+          border: inherit;
+        }
+      }
+    }
+    > tfoot {
+      background-color: inherit;
+      > tr > th {
+        text-align: end;
+      }
+      > tr > td {
+        text-align: start;
+      }
+    }
+  }
+}

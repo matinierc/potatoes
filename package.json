@@ -1,0 +1,67 @@
+{
+  "name": "potatoes",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:5001",
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/react": "^18.2.67",
+    "@types/react-dom": "^18.2.22",
+    "axios": "^1.6.8",
+    "body-parser": "^1.20.2",
+    "buffer": "^6.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "final-form": "^4.20.10",
+    "fs": "^0.0.1-security",
+    "http-proxy-middleware": "^3.0.0",
+    "isomorphic-fetch": "^3.0.0",
+    "multer": "^1.4.5-lts.1",
+    "npm-run-all": "^4.1.5",
+    "react": "^18.2.0",
+    "react-data-grid": "^7.0.0-beta.43",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "react-dom": "^18.2.0",
+    "react-final-form": "^6.5.9",
+    "react-helmet": "^6.1.0",
+    "react-scripts": "5.0.1",
+    "request": "^2.88.2",
+    "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.0",
+    "typescript": "4.6.3"
+  },
+  "scripts": {
+    "start": "tsc && react-scripts start",
+    "build": "tsc && react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "server": "nodemon server",
+    "dev": "run-p -l server start"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
