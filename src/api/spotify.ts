@@ -2,10 +2,6 @@ import axios from 'axios';
 import { SPOTIFY_URLS } from '../utils/constants';
 import { serialize } from '../utils/authentification';
 
-// TODO Store in file
-const client_id = 'bffdd70b9890448ab87275d0ec196e40';
-const client_secret = '63146780a2684308bf1b0897bcaab505';
-
 export interface TokenReponse {
     token?: string;
     expiresIn?: number;

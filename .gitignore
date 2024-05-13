@@ -4,3 +4,5 @@ build
 config/tracks.json
 .env
 uploads
+.DS_Store
+TODO.txt
