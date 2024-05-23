@@ -6,6 +6,7 @@ import "./App.css";
 import SpotifyProvider from "./providers/PotatoesProvider";
 import PlaylistData from "./components/PlaylistData";
 import Controls from "./components/Controls";
+import RecorderProvider from "./providers/RecorderProvider";
 
 const App = () => {
   return (
@@ -15,11 +16,13 @@ const App = () => {
       </Helmet>
       <div className="App-body">
         <SpotifyProvider>
-          <div className="header">
-            <Controls />
-            <div id="embed-iframe"></div>
-          </div>
-          <PlaylistData />
+          <RecorderProvider>
+            <div className="header">
+              <Controls />
+              <div id="embed-iframe"></div>
+            </div>
+            <PlaylistData />
+          </RecorderProvider>
         </SpotifyProvider>
       </div>
     </div>

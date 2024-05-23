@@ -3,11 +3,11 @@ import { usePotatoes } from "../providers/PotatoesProvider";
 import { Track } from "../utils/interfaces";
 
 const renderAlbum = (track: Track) => (
-    <img src={track.imageUrl} width={30} alt='Player' />
+    <img src={track.imageUrl} width={40} alt='Album' />
 )
 
 const PlaylistData = () => {
-    const { playlist = [] } = usePotatoes();
+    const { playlist = [], playlistLoading } = usePotatoes();
 
     const columns = [{
         key: 'id',
@@ -24,8 +24,20 @@ const PlaylistData = () => {
         name: 'Name',
         width: 200,
     }, {
+        key: 'album',
+        name: 'Album',
+        width: 200,
+    },{
+        key: 'number',
+        name: 'Track',
+        width: 200,
+    },{
         key: 'artist',
         name: 'Artist',
+        width: 200,
+    }, {
+        key: 'date',
+        name: 'Date',
         width: 200,
     }, {
         key: 'status',
@@ -51,27 +63,32 @@ const PlaylistData = () => {
     }
 
     return (
-        <table id='PlaylistData'>
-            <caption >
-                Track list
-            </caption>
-            <thead>
-                <tr>
-                    {columns.map((column) => <th scope="col" id={column.key}>{column.name}</th>)}
-                </tr>
-            </thead>
-            <tbody>
-                {playlist.map((track) => {
-                    return renderRow(track);
-                })}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th scope="row" colSpan={columns.length - 1}>Count :</th>
-                    <td>{playlist.length}</td>
-                </tr>
-            </tfoot>
-        </table>
+        <>
+            {playlistLoading && <div className="loader"/>}
+            {!playlistLoading && (
+                <table id='PlaylistData'>
+                    <caption >
+                        Track list
+                    </caption>
+                    <thead>
+                        <tr>
+                            {columns.map((column) => <th scope="col" id={column.key}>{column.name}</th>)}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {playlist.map((track) => {
+                            return renderRow(track);
+                        })}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th scope="row" colSpan={columns.length - 1}>Count :</th>
+                            <td>{playlist.length}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            )}
+        </>
     )
 }
 

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { usePotatoes } from "../providers/PotatoesProvider";
+import {useRecorder} from "../providers/RecorderProvider";
 
 type SpotifyEmbedController = {
   loadUri: (string) => void;
@@ -14,32 +15,32 @@ type PlayBackData = {
 
 const SpotifyPlayer = () => {
   const { currentTrack } = usePotatoes();
+  const { setStartRecording, setStopRecording } = useRecorder();
   const [controller, setController] = useState<SpotifyEmbedController>();
-  const [recording, setRecording] = useState<boolean>()
   const [playBackData, setPlayBackData] = useState<PlayBackData>()
 
   useEffect(() => {
     if (playBackData) {
       const { isPaused } = playBackData;
-      if (isPaused && !recording) {
-        setRecording(true);
+      if (isPaused) {
+        setStopRecording(true);
       }
     }
-  }, [playBackData, recording]);
+  }, [playBackData, setStopRecording]);
   
-  const onReady = (EmbedController) => {
+  const onReady = useCallback((EmbedController) => {
     setController(EmbedController);
     EmbedController.addListener('ready', (data) => {
-      console.log('>>> ready', data);
+      setStartRecording(true);
     });
     EmbedController.addListener('error', (data) => {
-      console.log('>>> error', data);
+      console.log('>>> SpotifyPlayer::error', data);
     });
 
     EmbedController.addListener('playback_update', ({ data}: { data: PlayBackData}) => {
       setPlayBackData(data);
     });
-  };
+  }, [setStartRecording]);
 
   (window as any).onSpotifyIframeApiReady = (IFrameAPI) => {
     const element = document.getElementById('embed-iframe');
@@ -49,9 +50,10 @@ const SpotifyPlayer = () => {
   useEffect(() => {
     if (currentTrack) {
       if (controller) {
-        console.log('>>> SpotifyPlayer:play', currentTrack);
-        // controller.loadUri(`spotify:track:${currentTrack.id}`);
-        // controller.play();
+        controller.loadUri(`spotify:track:${currentTrack.id}`);
+        controller.play();
+      } else {
+        console.log('>>> SpotifyPlayer:play NO CONTROLLER !!!');
       }
     }
   }, [controller, currentTrack]);

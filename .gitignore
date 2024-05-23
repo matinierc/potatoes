@@ -6,3 +6,4 @@ config/tracks.json
 uploads
 .DS_Store
 TODO.txt
+config/tracks copy.json

@@ -7,11 +7,11 @@ export interface TokenReponse {
     expiresIn?: number;
 }
 
-export const getToken = async (): Promise<TokenReponse> => axios
+export const getToken = async (clientId, clientSecret): Promise<TokenReponse> => axios
 .post(
     SPOTIFY_URLS.TOKEN,
     serialize({ grant_type: 'client_credentials' }),
-    { headers: { 'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret)}}
+    { headers: { 'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)}}
 ).then(response => {
     const { access_token: token, expires_in: expiresIn } = response?.data;
     return { token, expiresIn };
@@ -20,19 +20,9 @@ export const getToken = async (): Promise<TokenReponse> => axios
     return {};
 });
 
-export const getPlaylist = async (token: string, playlistId: string) => axios
+export const getPlaylist = async (token: string, url: string) => axios
 .get(
-    SPOTIFY_URLS.PLAYLIST + playlistId,
-    { headers: { 'Authorization': 'Bearer ' +token}}
-).then(response => {
-    return response;
-}).catch(err => {
-    console.log(err);
-});
-
-export const getTrack = async (token: string, trackId: string) => axios
-.get(
-    SPOTIFY_URLS.TRACK + trackId,
+    url,
     { headers: { 'Authorization': 'Bearer ' +token}}
 ).then(response => {
     return response;

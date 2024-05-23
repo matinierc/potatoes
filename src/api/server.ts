@@ -1,26 +1,25 @@
 import axios from 'axios';
 import { Track } from '../utils/interfaces';
+import { RECORD_STATUS } from '../utils/constants';
 
-export const saveFile = async (blob: Blob) => {
-    console.log('>>> blob', blob)
-    const data = {
-      "user" : "test",
-    };
-    let file = new File([blob], 'recording.ogg');
-  
+export const saveOriginalTrack = async (blob: Blob, track: Track) => {
+    const fileName = `${track.id}.ogg`;
+    const file = new File([blob], fileName);
     const formData = new FormData();
-    formData.append('files.file', file);
-    formData.append('data', JSON.stringify(data));
 
-    return axios
-        .post(
-            '/save',
-            formData
-        ).then(response => {
-            return response;
-        }).catch(err => {
-            console.log(err);
-        });
+    formData.append('files.file', file);
+
+    return axios.post('/saveOriginalTrack', formData
+    ).then(() => {
+        return {
+            fileName, status: RECORD_STATUS.SUCCESS,
+        };
+    }).catch(err => {
+        console.log(err);
+        return {
+            status: RECORD_STATUS.FAILED,
+        };
+    });
 };
 
 export const saveTracks = async (playlist: Track[]) => {
@@ -31,11 +30,36 @@ export const saveTracks = async (playlist: Track[]) => {
         .post(
             '/saveTracks'
             , JSON.stringify(playlist)
-            , { headers: {'Content-Type': 'application/json' }},
-        ).then(response => {
-            return response;
-        }).catch(err => {
-            console.log(err);
-        });
+            , { headers: { 'Content-Type': 'application/json' } },
+        ).then(response => response)
+        .catch(err => console.log(err));
 };
+
+export const getTracks = async () => {
+    return axios
+        .get('/tracks')
+        .then(response => response?.data)
+        .catch(err => console.log(err));
+}
+
+export const getCredentials = async () => {
+    return axios
+        .get('/credentials')
+        .then(response => response?.data)
+        .catch(err => console.log(err));
+}
+
+export const convertTracks = async () => {
+    return axios
+        .get('/convertTracks')
+        .then(response => response?.data)
+        .catch(err => console.log(err));
+}
+
+export const deleteTemps = async () => {
+    return axios
+        .get('/deleteTemps')
+        .then(response => response?.data)
+        .catch(err => console.log(err));
+}
 
