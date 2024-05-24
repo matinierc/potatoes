@@ -8,6 +8,7 @@ import { usePotatoes } from "../providers/PotatoesProvider";
 import { RECORD_STATUS } from "../utils/constants";
 import { useRecorder } from "../providers/RecorderProvider";
 import { Track } from "../utils/interfaces";
+import { checkTracks } from "../api/server";
 
 const Controls = () => {
     const {
@@ -15,6 +16,7 @@ const Controls = () => {
         playlist,
         stopAfter,
         setStopAfter,
+        loadPlaylist,
     } = usePotatoes();
     const {
         recording,
@@ -53,11 +55,19 @@ const Controls = () => {
         }
     }, [currentTrack, playlist]);
 
+    const onCheck = async () => {
+        await checkTracks();
+        await loadPlaylist();
+    };
+
     return (
         <div id='Controls'>
             <PlaylistWrapper />
             <SpotifyPlayer />
             <Recorder />
+            <div>
+                <button onClick={onCheck} disabled={recording}>Check</button>
+            </div>
             <div style={{ display: 'inline-flex' }}>
                 <span className="text">Stop after:</span>
                 <ToggleButton

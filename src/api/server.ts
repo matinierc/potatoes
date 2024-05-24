@@ -42,6 +42,13 @@ export const getTracks = async () => {
         .catch(err => console.log(err));
 }
 
+export const checkTracks = async () => {
+    return axios
+        .get('/check')
+        .then(response => response?.data)
+        .catch(err => console.log(err));
+}
+
 export const getCredentials = async () => {
     return axios
         .get('/credentials')
